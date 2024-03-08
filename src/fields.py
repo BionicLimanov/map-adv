@@ -10,7 +10,7 @@ class Fields:
 
     EMAILS = "emails"
     PHONES = "phones"
-
+    PHONESS = "phoness"
     LINKEDIN = "linkedin"
     TWITTER = "twitter"
     FACEBOOK = "facebook"
@@ -48,7 +48,7 @@ class Fields:
     MENU = "menu"
     RESERVATIONS = "reservations"
     ORDER_ONLINE_LINKS = "order_online_links"
-
+    BREVIEW = "best_review"
     ABOUT = "about"
     IMAGES = "images"
     HOURS = "hours"
@@ -66,7 +66,9 @@ DEFAULT_FIELDS_WITHOUT_SOCIAL_DATA = [
     Fields.CATEGORIES , 
     Fields.RATING, 
     Fields.REVIEWS, 
-    Fields.ADDRESS, 
+    Fields.ADDRESS,
+    Fields.PHONESS, 
+    Fields.BREVIEW, 
 ]
 
 DEFAULT_SOCIAL_FIELDS = [

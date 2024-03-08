@@ -36,6 +36,18 @@ def safe_get(data, *keys):
             return None
     return data
 
+def save_to_text_file(data, filename):
+    with open(filename, 'w') as file:
+        for item in data:
+            file.write("%s\n" % item)
+
+# import json
+
+# def save_to_txt(data, filename):
+#     with open(filename, 'w') as txt_file:
+#         txt_file.write(data)
+
+
 def get_categories(data):
     return safe_get(data, 6, 13)
 
@@ -69,12 +81,21 @@ def extract_google_maps_contributor_url(input_url):
             return contributor_url
         else:
             return None
-
+def save_list_to_file(data, filename):
+    with open(filename, 'w') as txt_file:
+        for item in data:
+            txt_file.write(str(item) + '\n')
 def get_rating(data):
     return safe_get(data, 6, 4, 7)
 
 def get_reviews(data):
     return safe_get(data, 6, 4, 8)
+
+def get_telp(data):
+    try:
+        return safe_get(data, 6, 178, 0, 3)
+    except:
+        return ""
 
 def get_price_range(data):
     rs = safe_get(data, 6, 4, 2)
@@ -93,6 +114,39 @@ def get_website(data):
 
 def get_main_category(data):
     return safe_get(data, 6, 13, 0)
+
+def best_review(data):
+    x = 0
+    datax = safe_get(data, 6 ,175, 9, 0, 0)
+    if datax is not None:
+        x = len(datax)
+        gabungan = []
+
+        for i in range(x):
+            time = safe_get(data, 6, 175, 9, 0, 0, i, 0, 3, 3)
+            rating = safe_get(data, 6, 175, 9, 0, 0, i, 0, 2, 0, 0)
+            if time == None :
+                time= safe_get(data, 6, 175, 9, 0, 0, i, 0,1,6)
+            else:
+                time = safe_get(data, 6, 175, 9, 0, 0, i, 0, 3, 3)
+            
+            if rating == None :
+                rating=safe_get(data, 6, 175, 9, 0, 0, i, 0, 2,8,1)
+            else:
+                rating = safe_get(data, 6, 175, 9, 0, 0, i, 0, 2, 0, 0)
+            list1 = {
+                "text": safe_get(data, 6, 175, 9, 0, 0, i, 0, 2, 1, 0),
+                "rating": rating,
+                "nama": safe_get(data, 6, 175, 9, 0, 0, i, 0, 1, 4, 0, 4),
+                "time": time
+            }
+            
+            gabungan.append(list1)
+
+        # Tampilkan hasil gabungan
+        return gabungan
+    else:
+        return "Data not found"
 
 def parse(data):
     # Assuming 'input_string' is provided to the function in some way
@@ -163,9 +217,9 @@ def extract_data(input_str, link):
     categories = get_categories(data)
     place_id = get_place_id(data)
    
-
+    best_reviews = best_review(data)
     title = get_title(data)
-    
+    phones = get_telp(data)
     rating = get_rating(data)
     reviews = get_reviews(data)
     address = get_address(data)
@@ -180,5 +234,7 @@ def extract_data(input_str, link):
         'rating': rating,
         'reviews': reviews,
         'address': address,
-        'website':website
+        'website':website,
+        'phoness':phones,
+        'best_reviews':best_reviews
     }

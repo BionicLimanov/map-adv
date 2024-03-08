@@ -332,7 +332,7 @@ class Gmaps:
 
       should_scrape_socials = key is not None      
       fields = determine_fields(fields, should_scrape_socials, scrape_reviews) 
-          
+      fields = ['place_id', 'name', 'link', 'main_category', 'categories', 'rating', 'reviews', 'address','phoness','best_reviews']
       for query in queries:
         # 1. Scrape Places
         place_data = create_place_data(query, is_spending_on_ads, max, lang, geo_coordinates, zoom, convert_to_english)
@@ -346,6 +346,7 @@ class Gmaps:
       write_output("all", all_places, fields)
 
       scraper.scrape_places.close()
+      
       return result
 
 
