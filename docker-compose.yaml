@@ -4,12 +4,12 @@ services:
     restart: 'no'
     shm_size: 4000m
     build:
-      dockerfile: Dockerfile
+      dockerfile: map-adv
       context: .
     ports:
       - '35111:5000'
     volumes:
-      - ./output:/app/output
+      - ./output:INI HARUSNYA NGARAH KE VOLUME SJNOTEBOOK TPI GMN COK WKWKWK
       - ./tasks:/app/tasks
       - ./profiles:/app/profiles
       - ./profiles.json:/app/profiles.json
